@@ -2,12 +2,10 @@ from django.db import models
 
 
 class Country(models.Model):
-    name = models.TextField(name='name',
-                            unique=True, blank=False, null=False)
-    country_iso_code = models.TextField(name='country_iso_code',
-                                        unique=True, blank=False, null=False)
-    region = models.TextField(name='region',
+    name = models.TextField(name='name', unique=True, blank=False, null=False)
+    alpha2 = models.TextField(name='alpha2',
                               unique=True, blank=False, null=False)
+    region = models.TextField(name='region', blank=False, null=True)
 
 
 class StatisticCountry(models.Model):
@@ -18,5 +16,3 @@ class StatisticCountry(models.Model):
     confirmed = models.IntegerField(name='confirmed')
     cumulative_confirmed = models.IntegerField(name='cumulative_confirmed')
     created = models.DateTimeField(name='created')
-
-
