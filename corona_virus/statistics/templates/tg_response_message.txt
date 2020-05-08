@@ -1,0 +1,6 @@
+{{ statistic.country.name }}
+on {{ statistic.day }}
+Deaths: {{ statistic.deaths }}
+Cumulative deaths: {{ statistic.cumulative_deaths }}
+Confirmed: {{ statistic.confirmed }}
+Cumulative confirmed: {{ statistic.cumulative_confirmed }}

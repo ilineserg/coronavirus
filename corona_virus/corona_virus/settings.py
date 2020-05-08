@@ -12,20 +12,27 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import toml
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Read configs
+CONFIG = toml.load([
+    os.path.join(BASE_DIR, 'config', 'config.toml'),
+])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0e5+=45d_obozwj94qj_&s1nzmbs^=9h-8p@$%zjwkn^of!w=v'
+SECRET_KEY = CONFIG['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = CONFIG['debug']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = CONFIG['allowed_hosts']
 
 
 # Application definition
@@ -37,7 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'data',
+
+    'countries',
+    'statistics',
 ]
 
 MIDDLEWARE = [
@@ -76,12 +85,12 @@ WSGI_APPLICATION = 'corona_virus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': "django.db.backends.postgresql_psycopg2",
-        'HOST': "127.0.0.1",
-        'NAME': "corona",
-        'USER': "corona",
-        'PASSWORD': "corona",
-        'PORT': 5432,
+        'ENGINE': CONFIG['databases']['default']['engine'],
+        'HOST': CONFIG['databases']['default']['host'],
+        'NAME': CONFIG['databases']['default']['name'],
+        'USER': CONFIG['databases']['default']['user'],
+        'PASSWORD': CONFIG['databases']['default']['password'],
+        'PORT': CONFIG['databases']['default']['port'],
     }
 }
 
@@ -108,18 +117,27 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = CONFIG['language_code']
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = CONFIG['time_zone']
 
-USE_I18N = True
+USE_I18N = CONFIG['use_i18n']
 
-USE_L10N = True
+USE_L10N = CONFIG['use_l10n']
 
-USE_TZ = True
+USE_TZ = CONFIG['use_tz']
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+TG_BOT_TOKEN = CONFIG['telegram']['bot']['token']
+TG_BOT_PROXY = CONFIG['telegram']['bot']['proxy_url']
+
+COVID_DATA_URL = 'https://dashboards-dev.sprinklr.com/data/9043/global-covid19-who-gis.json'
