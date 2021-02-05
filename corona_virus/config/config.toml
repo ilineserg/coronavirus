@@ -1,0 +1,25 @@
+debug = true
+allowed_hosts = ['*']
+secret_key = '0e5+=45d_obozwj94qj_&s1nzmbs^=9h-8p@$%zjwkn^of!w=v'
+language_code = 'en-us'
+time_zone = 'UTC'
+use_i18n = true
+use_l10n = true
+use_tz = true
+log_dir = ''
+
+
+[telegram]
+    [telegram.bot]
+        token = '1126061276:AAGncJa77lggKd7_OJFpaKs9WMqiDVzkKIk'
+        proxy_url = 'https://telegg.ru/orig/bot'
+
+
+[databases]
+    [databases.default]
+        engine = "django.db.backends.postgresql_psycopg2"
+        host = "127.0.0.1"
+        name = "corona"
+        user = "corona"
+        password = "corona"
+        port = 5432
